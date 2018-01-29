@@ -86,7 +86,7 @@ with these interfaces.
 Is lambda expression an object?
 Lambda expression is not created using new operator. It's less overhead on jvm to create lambdas than to create new objects. So, it won't have to be normal life cycle of java object with initilization, construction, garbage collection etc. Also, you cannot invoke any Object class methods like equals, hashcode etc. It is best to think of a lambda expression as a function, not an object, and to accept that it can be passed to a functional interface.
 
-Method References
+Method references
 -----------------
 Method references are easier way to write lambda expressions. Consider the below lambda expression:
 
@@ -109,5 +109,116 @@ System.out::println is equivalent to x -> System.out.println(x). Similarly, Math
 In the third case, the ﬁrst parameter becomes the target of the method. For example, 
 	
 	String::compareToIgnoreCase is the same as (x, y) -> x.compareToIgnoreCase(y).
+	
+Few more examples of method references
+--------------------------------------
+1)Consumer<String> c = s -> System.out.println(s) can be written as Consumer<String> c = System.out::println
+2)Comparator<Integer> c = (i1,i2) -> Integer.compare(i1,i2) can be written as Comparator<Integer> c = Integer::compare
 
+Constructor references
+----------------------
+Constructor references are just like method references, except that the name of the method is new. Suppose you have a list of strings.
+Then you can turn it into an array of Threads, by calling the Thread constructor on each of the strings, with the following invocation:
+
+	String[] names={"tulasi","venki","potti"};
+	List<String> labels=Arrays.asList(names);
+	Stream<Thread> stream = labels.stream().map(Thread::new);
+	stream.forEach((t) -> System.out.println("Thread name :: " + t.getName())); 
+	
+Note: We can print using method reference also. For ex, stream.forEach(System.out::println);
+
+You can form constructor references with array types. For example, int[]::new is a constructor reference with one parameter: the length of the array. It is equivalent to the lambda expression x -> new int[x].
+
+*****
+Note:Array constructor references are useful to overcome a limitation of Java. It is not possible to construct an array of a generic type T. The expression new T[n] is an error since it would be erased to new Object[n]. That is a problem for library authors. Suppose we want to have an array of Threads. The Stream interface has a toArray method that returns an Object array:
+	
+	Object[] threads = stream.toArray();
+
+But that is unsatisfactory. The user wants an array of buttons, not objects. The stream library solves that problem with constructor references.
+
+	Thread[] buttons = stream.toArray(Thread[]::new);
+	
+Functional Interfaces
+---------------------
+Java 8 provided a rich set of functional interfaces in java.util.function. There are 43 of them. These can be divided into 4 categories.
+
+
+Category 1
+----------
+Supplier
+--------
+Supplier is just a single interface that won't take any object, but provides an object.
+
+	@FunctionalInterface
+	public interface Supplier<T>{
+		T get();
+	}
+
+Consumer
+--------
+Consumer is just the opposite of Supplier, in which  it takes an object but won't provide any.
+
+	@FunctionalInterface
+	public interface Consumer<T>{
+		void accept(T t);
+	}
+
+Ex: System.out.println() is an example of Consumer.
+
+Category 2
+----------
+In the 2nd category we have BiConsumer.	It takes two objects and they don't need to be of same type.
+
+	@FunctionalInterface
+	public interface BiConsumer<T,U>{
+		void accept(T t,U u);
+	}
+
+Category 3
+----------
+In the third category we have predicate, BiPredicate. Predicate takes an object as a parameter and returns a boolean, whereas BiPredicate takes two objects and returns a boolean.
+
+	@FunctionalInterface
+	public interface Predicate<T>{
+		boolean test(T t);
+	}
+	
+	@FunctionalInterface
+	public interface BiPredicate<T,U>{
+		boolean test(T t,U u);
+	}
+
+Category 4
+----------
+In the 4th category we have Function and BiFunction. Function takes an object as a parameter and returns an another object. BiFunction takes two objects as arguments and returns an object.
+	
+	@FunctionalInterface
+	public interface Function<T,R>{
+		R apply(T t);
+	}
+
+	@FunctionalInterface
+	public interface BiFunction<T,U,R>{
+		R apply(T t,U u);
+	}
+	
+Note: In the Function category we have some special cases like UnaryOperator, In which it takes an argument of a type and returns the object of same type.
+
+	@FunctionalInterface
+	public interface UnaryOperator<T> extends Function<T,T>{
+	}	
+
+Note: In the BiFunction category also we have some special cases like BinaryOperator, In which it takes two arguments of a type and returns the object of same type.
+
+	@FunctionalInterface
+	public interface BinaryOperator<T> extends Function<T,T,T>{
+	}
+
+*****
+Note: Most of the times, parameter types can be ommitted in lambda expression. For ex in the below statement  compiler automatically deduces the types of parameters s1 and s2.
+
+	Comparator<String> comparator=(s1,s2) -> Integer.compare(s1.length(), s2.length());
+
+Processing Collections with Lambdas
+-----------------------------------
 	
