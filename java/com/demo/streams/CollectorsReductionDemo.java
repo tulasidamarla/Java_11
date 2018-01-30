@@ -13,6 +13,8 @@ import java.util.TreeSet;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import com.demo.domain.Person;
+
 /**
  * There is another type of reduction called Collectors. This is 
  * also referred to as mutable reduction, because unlike other reductions
