@@ -23,6 +23,7 @@ public class PersonUtil {
 			stream.map(line -> {
 				String[] s = line.split(" ");
 				Person p = new Person(s[0].trim(),Integer.parseInt(s[1]));
+				p.setGender(s[2].trim());
 				persons.add(p);
 				return p;
 			}).forEach(System.out::println);;
