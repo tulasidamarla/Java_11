@@ -136,7 +136,7 @@ Note:Array constructor references are useful to overcome a limitation of Java. I
 	
 	Object[] threads = stream.toArray();
 
-But that is unsatisfactory. The user wants an array of buttons, not objects. The stream library solves that problem with constructor references.
+But that is unsatisfactory. The user wants an array of threads, not objects. The stream library solves that problem with constructor references.
 
 	Thread[] buttons = stream.toArray(Thread[]::new);
 	
