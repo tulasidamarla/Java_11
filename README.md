@@ -98,9 +98,9 @@ The above lambda expression can be written with simpler syntax like,
 	String[] names={"tulasi","venki","potti"};
 	Arrays.sort(names,String::compareToIgnoreCase);
 	
-As we can see from these examples, the :: operator separates the method name from the name of an object or class. There are three principal cases:
-• object::instanceMethod
-• Class::staticMethod
+As we can see from these examples, the :: operator separates the method name from the name of an object or class. There are three principal cases:<br>
+• object::instanceMethod<br>
+• Class::staticMethod<br>
 • Class::instanceMethod	
 
 In the ﬁrst two cases, the method reference is equivalent to a lambda expression that supplies the parameters of the method. i.e.,
