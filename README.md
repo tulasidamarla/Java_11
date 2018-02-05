@@ -114,7 +114,7 @@ In the third case, the ﬁrst parameter becomes the target of the method. For ex
 	
 Few more examples of method references
 --------------------------------------
-1)Consumer<String> c = s -> System.out.println(s) can be written as Consumer<String> c = System.out::println
+1)Consumer<String> c = s -> System.out.println(s) can be written as Consumer<String> c = System.out::println<br>
 2)Comparator<Integer> c = (i1,i2) -> Integer.compare(i1,i2) can be written as Comparator<Integer> c = Integer::compare
 
 Constructor references
