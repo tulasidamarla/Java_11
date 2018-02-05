@@ -103,8 +103,10 @@ As we can see from these examples, the :: operator separates the method name fro
 • Class::staticMethod<br>
 • Class::instanceMethod	
 
-In the ﬁrst two cases, the method reference is equivalent to a lambda expression that supplies the parameters of the method. i.e.,
-System.out::println is equivalent to x -> System.out.println(x). Similarly, Math::pow is equivalent to (x, y) -> Math.pow(x, y).
+In the ﬁrst two cases, the method reference is equivalent to a lambda expression that supplies the parameters of the method. For ex:
+	
+	System.out::println is equivalent to x -> System.out.println(x). 
+	Math::pow is equivalent to (x, y) -> Math.pow(x, y).
 
 In the third case, the ﬁrst parameter becomes the target of the method. For example, 
 	
