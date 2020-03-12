@@ -12,7 +12,7 @@ If you want to sort strings by length instead of the default dictionary order, y
 		Arrays.sort(strings, new LengthComparator());
 
 Note:
-The compare method isn’t called right away. Instead, the sort method keeps calling the compare method, rearranging the elements if they are out of order, until the array is sorted.
+The compare method isn’t called right away. Instead, the sort method keeps calling the compare method, rearranging the elements if they are out of order, until the array is sorted.<br>
 It means a block of code was passed to a sort method. In java 8, passing a block of code became easy with lambda expressions.
 
 The Syntax of Lambda Expressions
@@ -51,14 +51,14 @@ Consider the Arrays.sort method. Its second parameter requires an instance of Co
 
 The management of these objects and classes is completely implementationdependent, and it can be much more efficient than using traditional inner classes. It is best to think of a lambda expression as a function, not an object, and to accept that it can be passed to a functional interface.
 
-Note:
+Note:<br>
 You can’t even assign a lambda expression to a variable of type Object—Object is not a functional interface.
 
 Types of Functional Interfaces
 ------------------------------
-1)Function	--> Consumes value/values and returns value
-2)Predicate	--> Consumes value/values and returns boolean
-3)Supplier	--> Doesn't take value and returns a value
+1)Function	--> Consumes value/values and returns value<br>
+2)Predicate	--> Consumes value/values and returns boolean<br>
+3)Supplier	--> Doesn't take value and returns a value<br>
 4)Consumer	--> Consumes a value and doesn't return any value
 
 Function/BiFunction
@@ -73,7 +73,7 @@ Note: If you look at Arrays.sort(array, comparator), it takes comparator object.
 
 Reason: Behind the scenes, the Arrays.sort method receives an object of some class that implements Comparator<String>. It means, your lambda expression is converted into object of type Comparator.
 
-Function has a subtype named, UnaryOperator. This takes an input of type T and returns a value of same type.
+Function has a subtype named, UnaryOperator. This takes an input of type T and returns a value of same type.<br>
 BiFunction has a subtype named, BinaryOperator. This take an two input parameters of type T and return a value of same type.
 
 Predicate
@@ -112,7 +112,7 @@ This can be writtern in simple way using method references. For ex,
 		
 The expression System.out::println is a method reference. In the above example, foreach is takes a parameter of time Consumer.
 
-Note: There are ten overloaded println methods in the PrintStream class (of which System.out is an instance). The compiler needs to figure out which one to use, depending on context.
+Note: There are ten overloaded println methods in the PrintStream class (of which System.out is an instance). The compiler needs to figure out which one to use, depending on context.<br>
 The println(String x) method is selected from the ten overloaded println methods since String is the best match.
 
 Now suppose we assign the same method reference to a different functional interface:
@@ -123,33 +123,31 @@ The Runnable functional interface has a single abstract method with no parameter
 
 The :: operator separates the method name from the name of an object or class. There are three variants:
 
-1. object::instanceMethod -> It is equivalent to a lambda expression whose parameters are passed to the method. For ex,
-								System.out::println (Object is system.out). This is equivalent to x -> System.out.println(x).
-2. Class::instanceMethod  -> The first parameter becomes the implicit parameter of the lambda, remaining parameters are passed to the method. For ex,
-								String::compareToIgnoreCase . This is equivalent to (x, y) -> x.compareToIgnoreCase(y).
-3. Class::staticMethod	  -> All parameters are passed to the static method. For ex,
-								Math::pow is equivalent to (x, y) -> Math.pow(x, y).
+1. object::instanceMethod -> It is equivalent to a lambda expression whose parameters are passed to the method. For ex,<br>
+				System.out::println (Object is system.out). This is equivalent to x -> System.out.println(x).
+2. Class::instanceMethod  -> The first parameter becomes the implicit parameter of the lambda, remaining parameters are passed to the method. For ex,<br>
+		String::compareToIgnoreCase . This is equivalent to (x, y) -> x.compareToIgnoreCase(y).
+3. Class::staticMethod	  -> All parameters are passed to the static method. For ex,<br>
+		Math::pow is equivalent to (x, y) -> Math.pow(x, y).
 
 Few more examples
 -----------------
-1)separator::equals		x -> separator.equals(x)		object::instanceMethod
-2)String::trim			x -> x.trim()					Class::instanceMethod
-3)String::concat		(x, y) -> x.concat(y)			Class::instanceMethod
-4)Integer::valueOf		x -> Integer.valueOf(x)			Class::staticMethod
-5)Integer::sum			(x, y) -> Integer.sum(x, y)		Class::staticMethod
-6)Integer::new			x -> new Integer(x)				This is a constructor Reference
-7)Integer[]::new		n -> new Integer[n]				This is an array constructor Reference
+1)separator::equals		x -> separator.equals(x)		object::instanceMethod<br>
+2)String::trim			x -> x.trim()				Class::instanceMethod<br>
+3)String::concat		(x, y) -> x.concat(y)			Class::instanceMethod<br>
+4)Integer::valueOf		x -> Integer.valueOf(x)			Class::staticMethod<br>
+5)Integer::sum			(x, y) -> Integer.sum(x, y)		Class::staticMethod<br>
+6)Integer::new			x -> new Integer(x)			This is a constructor Reference<br>
+7)Integer[]::new		n -> new Integer[n]			This is an array constructor Reference
 
-Note: A lambda expression can only be rewritten as a method reference if the body of the lambda expression calls a single method and doesn’t do anything else. For ex,
-consider the below example.
+Note: A lambda expression can only be rewritten as a method reference if the body of the lambda expression calls a single method and doesn’t do anything else. consider the below example.
 
 		s -> s.length() == 0
 
 This cannot be written as lambda expression, because it contains a method call followed by comparision. This cannot be converted to method reference.
 
 Note:
-You can capture the this parameter in a method reference. For example, this::equals is the same as x -> this.equals(x). It is also valid to use super. The method expression
-super::instanceMethod. For ex,
+You can capture the this parameter in a method reference. For example, this::equals is the same as x -> this.equals(x). It is also valid to use super. The method expression "super::instanceMethod". For ex,
 
 		class Greeter {
 			public void greet(ActionEvent event) {
@@ -205,8 +203,7 @@ The data structure representing the lambda expression must store the values for 
 
 Restriction
 -----------
-In Java, to ensure that the captured value is well-defined, there is an important restriction. In a lambda expression, you can only reference variables whose value doesn’t change.
-For example, the following is illegal:
+In Java, to ensure that the captured value is well-defined, there is an important restriction. In a lambda expression, you can only reference variables whose value doesn’t change. For example, the following is illegal:
 
 		public static void repeatMessage(int start, int delay){
 			ActionListener listener = event -> {
@@ -227,10 +224,10 @@ Processing Lambda Expressions
 -----------------------------
 The point of using lambdas is deferred execution. There are many reasons for executing code later, such as:
 
-1)Running the code in a separate thread
-2)Running the code multiple times
-3)Running the code at the right point in an algorithm (for example, the comparison operation in sorting)
-4)Running the code when something happens (a button was clicked, data has arrived, and so on)
+1)Running the code in a separate thread<br>
+2)Running the code multiple times<br>
+3)Running the code at the right point in an algorithm (for example, the comparison operation in sorting)<br>
+4)Running the code when something happens (a button was clicked, data has arrived, and so on)<br>
 5)Running the code only when necessary
 
 Let’s look at a simple example. Suppose you want to repeat an action n times. The action and the count are passed to a repeat method:
@@ -246,21 +243,19 @@ Implementation of repeat method is:
 		
 To accept the lambda, we need to pick a functional interface. In this case, we have used the Runnable interface: There are other types of functional interfaces:
 
-Runnable -> no parameters, no return type, method name is run(), Runs an action.
-Supplier<T> -> no parameter, returns any type(T), method name is get(), Supplies a value of type T. 
-Consumer<T> -> paramter type T, returns nothing, method name accept(), Consumes a value of type T.
-BiConsumer<T, U> -> parameter type (T, U), return nothing, method name accept(), Consumes a value of type T, U.
-Function<T, R> -> parameter type T, return type R, method name apply(), A function with argument type T
-BiFunction<T, U, R> -> parameter type T and U, return type R, method name apply(), A function with argument type T and U.
-UnaryOperator<T> -> Same as Function, with Parameter and return type T.
-BinaryOperator<T> -> Same as BiFunction, with parameters and return type T.
-Predicate<T> -> parameter type T, return type boolean, method name test(), A function with one parameter type T and return type boolean.
+Runnable -> no parameters, no return type, method name is run(), Runs an action.<br>
+Supplier<T> -> no parameter, returns any type(T), method name is get(), Supplies a value of type T. <br>
+Consumer<T> -> paramter type T, returns nothing, method name accept(), Consumes a value of type T.<br>
+BiConsumer<T, U> -> parameter type (T, U), return nothing, method name accept(), Consumes a value of type T, U.<br>
+Function<T, R> -> parameter type T, return type R, method name apply(), A function with argument type T.<br>
+BiFunction<T, U, R> -> parameter type T and U, return type R, method name apply(), A function with argument type T and U.<br>
+UnaryOperator<T> -> Same as Function, with Parameter and return type T.<br>
+BinaryOperator<T> -> Same as BiFunction, with parameters and return type T.<br>
+Predicate<T> -> parameter type T, return type boolean, method name test(), A function with one parameter type T and return type boolean.<br>
 BiPredicate<T,U> -> parameter types T and U, return type boolean, method name test(), A function with two parameter types T and U with return type boolean.
 
 
-Note: In the above example we have used Runnable, which doesn't take any argument. So, we can't exactly tell in which iteration currenly run() is executing. If We want to tell the
-action in which iteration it occurs. For that, we need to pick a functional interface that has a method with an int parameter and a void return. The
-standard interface for processing int values is IntConsumer. 
+Note: In the above example we have used Runnable, which doesn't take any argument. So, we can't exactly tell in which iteration currenly run() is executing. If We want to tell the action in which iteration it occurs. For that, we need to pick a functional interface that has a method with an int parameter and a void return. The standard interface for processing int values is IntConsumer. 
 
 		public interface IntConsumer
 		{
@@ -301,8 +296,7 @@ The above example with a Function.
 The output prints values from 10 to 19.
 
 Note:
-It is a good idea to use a functional interface from the above list whenever you can. For ex, There is a legacy interface java.io.FileFilter, but it is better to use the standard
-Predicate<File>. The only reason not to do so would be if you already have many useful methods producing FileFilter instances.
+It is a good idea to use a functional interface from the above list whenever you can. For ex, There is a legacy interface java.io.FileFilter, but it is better to use the standard Predicate<File>. The only reason not to do so would be if you already have many useful methods producing FileFilter instances.
 
 *****
 Note:
@@ -345,9 +339,9 @@ Note: If your key function can return null, you will like the nullsFirst and nul
 		Arrays.sort(people, Comparator.comparing(Person::getFirstName,	Comparator.nullsFirst(Comparator.naturalOrder())));
 		Arrays.asList(people).forEach(person -> System.out.println(person.getFirstName()));
 		
-output for the above code is : 
-null
-Krishna
+output for the above code is : <br>
+null<br>
+Krishna<br>
 Tulasi
 
 Because it used natural ordering, Krishna came before Tulasi. If we use the below code, the output changes.
@@ -355,7 +349,7 @@ Because it used natural ordering, Krishna came before Tulasi. If we use the belo
 		Arrays.sort(people, Comparator.comparing(Person::getFirstName,	Comparator.nullsFirst(Comparator.comparingInt(firstName -> firstName.length()))));
 		Arrays.asList(people).forEach(person -> System.out.println(person.getFirstName()));
 
-output:
-null
-Tulasi
+output:<br>
+null<br>
+Tulasi<br>
 Krishna
