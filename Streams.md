@@ -77,7 +77,7 @@ If you write the below statement, it prints infinitely.
 If you want to limit the stream without indefinitely printing it,
 		
 		final int SIZE = 10;
-		List<T> firstElements = stream.limit(SIZE + 1).collect(Collectors.toList());	
+		List<T> firstElements = randoms.limit(SIZE + 1).collect(Collectors.toList());	
 		
 2)To produce sequences such as 0 1 2 3 . . ., use the iterate method. It takes a “seed” value and a function (technically, a UnaryOperator<T>) and repeatedly applies the function to the previous result.
 
@@ -87,6 +87,7 @@ Note:
 we can also add a predicate to limit the infinite stream to a finite stream. The iterate method syntax is, Stream.iterate(T seed, Predicate hasNext, UnaryOperator next).
 For ex,
 
+		int limit = 10;
 		Stream<BigInteger> finiteIntegers	= Stream.iterate(BigInteger.ZERO,	n ->	n.compareTo(limit) < 0,	n ->	n.add(BigInteger.ONE));
 		finiteIntegers.forEach(System.out::println);
 
